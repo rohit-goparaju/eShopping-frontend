@@ -55,7 +55,7 @@ export default function ForgotPwd(){
                     <input className='form-control' type='text' name='username' value={username || ""} placeholder='enter username' onChange={handleChange} pattern="^[a-z][a-z0-9]{1,9}(?:@eShopping\.in)$" title="username must start with an alphabet, can contain only lowercase and numbers, length of the prefix must be between 2 to 10 inclusive, must end with @eShopping.in" required></input>
                 </label>
                 {noUser && <span className="text-danger">User does not exist.</span>}
-                <input className="btn btn-primary" type="submit"></input>
+                <input className="btn btn-outline-dark" type="submit"></input>
             </form>
         </Modal>
     );

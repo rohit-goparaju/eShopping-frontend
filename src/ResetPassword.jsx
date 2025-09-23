@@ -80,7 +80,7 @@ export default function ResetPassword(){
                     </label>
                     {confirmFail && <span className="text-danger">Passwords do not match.</span>}
                     {changeFail && <span className="text-danger">Failed to reset password, contact support.</span>}
-                    <input className="btn btn-primary" type="submit" value={"Reset Password"}></input>
+                    <input className="btn btn-outline-dark" type="submit" value={"Reset Password"}></input>
             </form>
         </Modal>
     );

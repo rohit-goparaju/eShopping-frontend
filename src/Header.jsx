@@ -23,7 +23,7 @@ export default function Header(){
     return (
         <>
         
-        <nav className="navbar navbar-dark bg-primary p-2">
+        <nav className="navbar navbar-dark bg-success p-2">
             <a className="ms-2 navbar-brand" href="/">
                 <img src={logo} alt='logo' width={"50px"} height={"50px"}></img>
                 <span className='frederickaFont fs-2'>eShopping</span>

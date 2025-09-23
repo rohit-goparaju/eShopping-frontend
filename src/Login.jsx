@@ -154,8 +154,8 @@ export default function Login({showLogin, setShowLogin}){
                 {registerPwdMissmatch && <span className='text-danger'>Password missmatch</span>}
                 {addFailed && <span className='text-danger'>Failed to create user, contact support if user does not already exist.</span>}
                 <div className='d-flex gap-2'>
-                    {!register && <input className='btn btn-primary flex-grow-1' type='submit' value={"Login"}></input>}
-                    <input className='btn btn-primary flex-grow-1' type="button" value={"Register"} onClick={handleRegister}></input>
+                    {!register && <input className='btn btn-outline-dark flex-grow-1' type='submit' value={"Login"}></input>}
+                    <input className='btn btn-outline-dark flex-grow-1' type="button" value={"Register"} onClick={handleRegister}></input>
                 </div>
                 {!register && <a href='/eShopping/forgotPassword'>Forgot password?</a>}
             </form>

@@ -72,7 +72,7 @@ export default function ChangePwd({showChangePwd, setShowChangePwd}){
                     </label>
                     {confirmFail && <span className="text-danger">Passwords do not match.</span>}
                     {changeFail && <span className="text-danger">Failed to change password, make sure the current password is correct.</span>}
-                    <input className="btn btn-primary" type="submit" value={"Change Password"}></input>
+                    <input className="btn btn-outline-dark" type="submit" value={"Change Password"}></input>
                 </form>
         </Modal>
     );

@@ -50,7 +50,7 @@ export default function SecurityQuestion(){
                         <input className="form-control" type="text" name="securityAnswer" value={securityAnswer || ""} onChange={handleChange} required></input>
                     </label>
                     {wrongAnswer && <span className="text-danger">incorrect answer.</span>}
-                    <input className="btn btn-primary" type="submit"></input>
+                    <input className="btn btn-outline-dark" type="submit"></input>
                 </form>
             </Modal>
         </>
