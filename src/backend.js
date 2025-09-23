@@ -36,7 +36,6 @@ backend.interceptors.response.use(
 
         console.error("Response Error:",error);
 
-
         return Promise.reject(error);
     }
 );

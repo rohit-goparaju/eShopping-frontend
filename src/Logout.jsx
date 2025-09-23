@@ -10,6 +10,7 @@ export default function Logout(){
         ()=>{
             localStorage.clear();
             navigate("/", {replace: true});
+            window.location.reload();
         },
         [navigate, user]
     );

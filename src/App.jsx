@@ -3,6 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import Layout from './Layout'
 import Logout from './Logout';
+import ForgotPwd from './ForgotPwd';
+import SecurityQuestion from './SecurityQuestion';
+import ResetPassword from './ResetPassword';
 
 const UserContext = createContext();
 
@@ -36,6 +39,11 @@ function App() {
       <Route path='/' element={<Layout></Layout>}>
         <Route index element={<Home></Home>}></Route>
         <Route path='/logout' element={<Logout></Logout>}></Route>
+        <Route path='/forgotPassword' element={<ForgotPwd></ForgotPwd>}></Route>
+        <Route path= '/securityQuestion' element={<SecurityQuestion></SecurityQuestion>}></Route>
+        <Route path='/resetPassword' element={<ResetPassword></ResetPassword>}></Route>
+
+        <Route path="*" element={<Logout></Logout>}></Route>
       </Route>
     </Routes>
     </UserContext.Provider>

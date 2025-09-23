@@ -4,14 +4,20 @@ import Login from "./Login";
 import { Link, NavLink } from 'react-router-dom';
 import RequireAuth from './RequireAuth';
 import { useUserContext } from './App';
+import ChangePwd from './ChangePwd';
 
 export default function Header(){
 
     const [showLogin, setShowLogin] = useState(false);
+    const [showChangePwd, setShowChangePwd] = useState(false);
     const {user} = useUserContext();
 
     function handleLoginToggle(event){
         setShowLogin(true);
+    }
+
+    function handleChangePwdToggle(event){
+        setShowChangePwd(true);
     }
 
     return (
@@ -29,7 +35,9 @@ export default function Header(){
                 </form>
                 <div className='dropdown text-light'>
                     <a className= {`nav-link dropdown-toggle noCaret hoverFadeWhite`} role='button' href='#' data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className='bi bi-person-circle fs-2'></i>
+                        <div className='d-flex justify-content-center align-items-center gap-2'>
+                            <i className='bi bi-person-circle fs-2'></i> <span className='fs-5'>{user}</span>
+                        </div>
                     </a>
                     <ul className='dropdown-menu dropdown-menu-end'>
                         {
@@ -45,7 +53,10 @@ export default function Header(){
                         </li>
                         {
                             user && 
-                            <>    
+                            <>  
+                                <li>
+                                    <a className='dropdown-item' href='#' onClick={handleChangePwdToggle}><i className='bi bi-key'></i> Change password</a>
+                                </li>  
                                 <li>
                                     <a href='/eShopping/logout' className='dropdown-item'><i className='bi bi-box-arrow-right'></i> Logout</a>
                                 </li>
@@ -56,6 +67,7 @@ export default function Header(){
             </div>
         </nav>
          <Login showLogin={showLogin} setShowLogin={setShowLogin}></Login>
+         <ChangePwd showChangePwd={showChangePwd} setShowChangePwd={setShowChangePwd}></ChangePwd>
         </>
     );
 }
