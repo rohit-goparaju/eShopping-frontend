@@ -6,6 +6,8 @@ import Logout from './Logout';
 import ForgotPwd from './ForgotPwd';
 import SecurityQuestion from './SecurityQuestion';
 import ResetPassword from './ResetPassword';
+import RequireAuth from './RequireAuth';
+import MyListings from './MyListings';
 
 const UserContext = createContext();
 
@@ -42,6 +44,7 @@ function App() {
         <Route path='/forgotPassword' element={<ForgotPwd></ForgotPwd>}></Route>
         <Route path= '/securityQuestion' element={<SecurityQuestion></SecurityQuestion>}></Route>
         <Route path='/resetPassword' element={<ResetPassword></ResetPassword>}></Route>
+        <Route path='/myListings' element={<RequireAuth><MyListings></MyListings></RequireAuth>} ></Route>
 
         <Route path="*" element={<Logout></Logout>}></Route>
       </Route>

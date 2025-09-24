@@ -83,6 +83,9 @@ export default function Header(){
                             user && 
                             <>  
                                 <li>
+                                    <Link className='dropdown-item hoverFWBold' to='/myListings'><i className='bi bi-card-list'></i> My listings</Link>
+                                </li>
+                                <li>
                                     <hr  className='dropdown-divider'></hr>
                                 </li>
                                 <li>
