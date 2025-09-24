@@ -31,3 +31,12 @@ body, html{
 .hoverFadeWhite{
     color: rgb(222, 222, 222);
 }
+
+.hoverBGRed:hover{
+  background-color : red;
+  color: white;
+}
+
+.hoverFWBold:hover{
+  font-weight: bold;
+}

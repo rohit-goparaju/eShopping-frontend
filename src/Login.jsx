@@ -24,7 +24,7 @@ export default function Login({showLogin, setShowLogin}){
                 }
             );
             if(response?.data){
-                console.log(response.data);
+                // console.log(response.data);
                 // setInvalidCreds(false);
                 // setPasswordMessage("");
                 // setUsernameMessage("");
@@ -116,7 +116,7 @@ export default function Login({showLogin, setShowLogin}){
 
     function handleSubmit(event){
         event.preventDefault();
-        console.log(credentials);
+        // console.log(credentials);
         login();
     }
 

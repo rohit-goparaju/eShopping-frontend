@@ -13,7 +13,7 @@ export default function ChangePwd({showChangePwd, setShowChangePwd}){
 
     const changePassword = async ()=>{
         try{
-            const response = await backend.post("/changePassword", {
+            const response = await backend.put("/changePassword", {
                 username : user,
                 oldPassword : passwords.oldPassword,
                 newPassword : passwords.newPassword

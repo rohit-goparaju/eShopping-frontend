@@ -32,7 +32,7 @@ export default function ResetPassword(){
 
     const resetPassword = async ()=>{
         try{    
-            const response = await backend.post("/forgotPassword/resetPassword",{
+            const response = await backend.put("/forgotPassword/resetPassword",{
                 username : username,
                 newPassword : passwords.newPassword
             });
