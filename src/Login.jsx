@@ -62,7 +62,7 @@ export default function Login({showLogin, setShowLogin}){
                 securityAnswer : credentials.securityAnswer
             });
             if(response?.data){
-                console.log(response.data);
+                // console.log(response.data);
                 warningCleanup();
                 localStorage.setItem("jwt", response?.data?.jwt);
                 localStorage.setItem("user", response?.data?.username);
