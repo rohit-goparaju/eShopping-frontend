@@ -8,7 +8,9 @@
 }
 
 .modalContent{
-    max-width: 100%;
+    max-width: 95%;
     min-width: 50%;
+    max-height: 80%;
+    overflow: auto;
 }
 

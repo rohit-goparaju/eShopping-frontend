@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {useUserContext} from "./App";
 import backend from "./backend";
+import Modal from "./Modal";
 
-export default function AddListing(){
+export default function AddListing({showAddListings, setShowAddListings}){
 
     const [inputs, setInputs] = useState({});
     const {user} = useUserContext();
+    const fileRef = useRef(null);
+    const [fileFormatErr, setFileFormatErr] = useState(false);
 
     const addListing = async ()=>{
         try{
@@ -43,7 +46,19 @@ export default function AddListing(){
 
     function handleChange(event){
         const {name, value, type, files} = event.target;
-        setInputs((prev)=>({...prev, [name] : type==="file" ? files[0] : value}));
+        if(type === "file"){
+            const filename = files[0]?.name;
+            if(filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png")){
+                setFileFormatErr(false);
+                setInputs((prev)=>({...prev, [name] : files[0]}));
+            }else{
+                setFileFormatErr(true);
+                fileRef.current.value = "";
+                setInputs((prev)=>({...prev, [name]: ""}));
+            }
+        }else{
+            setInputs((prev)=>({...prev, [name] : value}));
+        }
     }
 
     function handleSubmit(event){
@@ -52,19 +67,28 @@ export default function AddListing(){
         console.log(inputs , user);
     }
 
+    function cleanup(){
+        setInputs({});
+        setFileFormatErr(false);
+        fileRef.current.value = "";
+    }
+
     return (
+        <Modal showModal={showAddListings} setShowModal={setShowAddListings} cleanUp={cleanup}>
         <div>
-            <form className="d-flex flex-column gap-2 m-5 p-5 border shadow rounded" onSubmit={handleSubmit}>
+            <form className="d-flex flex-column gap-2 p-5" onSubmit={handleSubmit}>
+                <h1>Add Listing:</h1>
                 <label className="form-label"> 
                     Product image:
-                <div className="row">
-                    <div className="col-sm-3 d-flex align-items-center justify-content-center border border-1 border-dark text-white" style={{backgroundColor: "rgba(0, 0, 0, 0.75)"}}>
-                        <img src={inputs?.productImage && URL.createObjectURL(inputs.productImage)} alt="no image"  height={ inputs.productImage && "200px"} style={{maxWidth: "100"}}></img>
+                {/* <div className="row g-0"> */}
+                    <div className=" d-flex align-items-center justify-content-center border border-1 rounded" >
+                        <img src={inputs?.productImage && URL.createObjectURL(inputs.productImage)} alt="no image"  height={ inputs.productImage && "200px"} width={"100%"} style={{objectFit: "contain" }}></img>
                     </div>
-                    <div className="col-sm-9 d-flex align-items-center">
-                        <input type="file" className="form-control" name="productImage" onChange={handleChange} required></input>
+                    <div className=" d-flex align-items-center">
+                        <input ref={fileRef} type="file" className="form-control" name="productImage" onChange={handleChange} required></input>
                     </div>
-                </div>
+                {/* </div> */}
+                {fileFormatErr && <span className="text-danger">Supported file formats: <b>.jpg, .jpeg, .png</b></span>}
                 </label>
                 <label className="form-label">
                     product name:
@@ -81,5 +105,6 @@ export default function AddListing(){
                 <input type="submit" className="btn btn-primary" value={"Add Listing"}></input>
             </form>
         </div>
+        </Modal>
     );
 }
