@@ -9,6 +9,7 @@ export default function AddListing({showAddListings, setShowAddListings}){
     const {user} = useUserContext();
     const fileRef = useRef(null);
     const [fileFormatErr, setFileFormatErr] = useState(false);
+    const [addError, setAddError] = useState(false);
 
     const addListing = async ()=>{
         try{
@@ -35,11 +36,16 @@ export default function AddListing({showAddListings, setShowAddListings}){
 
             if(response?.data){
                 console.log(response.data);
+                cleanup();
+                setShowAddListings(false);
+                window.location.reload();                
             }else{
+                setAddError(true);
                 console.error("Failed to add listing");
             }
 
         }catch(error){
+            setAddError(true);
             console.error("Add listing error: ", error);
         }
     };
@@ -70,6 +76,7 @@ export default function AddListing({showAddListings, setShowAddListings}){
     function cleanup(){
         setInputs({});
         setFileFormatErr(false);
+        setAddError(false);
         fileRef.current.value = "";
     }
 
@@ -102,6 +109,7 @@ export default function AddListing({showAddListings, setShowAddListings}){
                     product price:
                     <input type="text" className="form-control" pattern="^\d+(\.\d+)?$" name="productPrice" value={inputs.productPrice||""} title="should be a currency number format." onChange={handleChange} required></input>
                 </label>
+                {addError && <span className="text-danger">Failed to add listing, contact support.</span>}
                 <input type="submit" className="btn btn-primary" value={"Add Listing"}></input>
             </form>
         </div>
