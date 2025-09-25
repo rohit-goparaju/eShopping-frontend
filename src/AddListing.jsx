@@ -3,13 +3,14 @@ import {useUserContext} from "./App";
 import backend from "./backend";
 import Modal from "./Modal";
 
-export default function AddListing({showAddListings, setShowAddListings}){
+export default function AddListing(){
 
     const [inputs, setInputs] = useState({});
     const {user} = useUserContext();
     const fileRef = useRef(null);
     const [fileFormatErr, setFileFormatErr] = useState(false);
     const [addError, setAddError] = useState(false);
+    const [showAddListings, setShowAddListings] = useState(false);
 
     const addListing = async ()=>{
         try{
@@ -80,21 +81,22 @@ export default function AddListing({showAddListings, setShowAddListings}){
         fileRef.current.value = "";
     }
 
+   
     return (
+        <>
+        <button className="btn btn-outline-dark" onClick={()=>{setShowAddListings(true)}}><i className="bi bi-box-seam"></i> Add listings</button>
         <Modal showModal={showAddListings} setShowModal={setShowAddListings} cleanUp={cleanup}>
         <div>
             <form className="d-flex flex-column gap-2 p-5" onSubmit={handleSubmit}>
                 <h1>Add Listing:</h1>
                 <label className="form-label"> 
                     Product image:
-                {/* <div className="row g-0"> */}
                     <div className=" d-flex align-items-center justify-content-center border border-1 rounded" >
                         <img src={inputs?.productImage && URL.createObjectURL(inputs.productImage)} alt="no image"  height={ inputs.productImage && "200px"} width={"100%"} style={{objectFit: "contain" }}></img>
                     </div>
                     <div className=" d-flex align-items-center">
                         <input ref={fileRef} type="file" className="form-control" name="productImage" onChange={handleChange} required></input>
                     </div>
-                {/* </div> */}
                 {fileFormatErr && <span className="text-danger">Supported file formats: <b>.jpg, .jpeg, .png</b></span>}
                 </label>
                 <label className="form-label">
@@ -114,5 +116,6 @@ export default function AddListing({showAddListings, setShowAddListings}){
             </form>
         </div>
         </Modal>
+        </>
     );
 }
