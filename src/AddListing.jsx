@@ -57,7 +57,14 @@ export default function AddListing(){
             <form className="d-flex flex-column gap-2 m-5 p-5 border shadow rounded" onSubmit={handleSubmit}>
                 <label className="form-label"> 
                     Product image:
-                    <input type="file" className="form-control" name="productImage" onChange={handleChange} required></input>
+                <div className="row">
+                    <div className="col-sm-3 d-flex align-items-center justify-content-center border border-1 border-dark text-white" style={{backgroundColor: "rgba(0, 0, 0, 0.75)"}}>
+                        <img src={inputs?.productImage && URL.createObjectURL(inputs.productImage)} alt="no image"  height={ inputs.productImage && "200px"} style={{maxWidth: "100"}}></img>
+                    </div>
+                    <div className="col-sm-9 d-flex align-items-center">
+                        <input type="file" className="form-control" name="productImage" onChange={handleChange} required></input>
+                    </div>
+                </div>
                 </label>
                 <label className="form-label">
                     product name:
