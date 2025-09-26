@@ -84,7 +84,7 @@ export default function AddListing(){
    
     return (
         <>
-        <button className="btn btn-outline-dark" onClick={()=>{setShowAddListings(true)}}><i className="bi bi-box-seam"></i> Add listings</button>
+        <button className="btn btn-lg btn-outline-dark" onClick={()=>{setShowAddListings(true)}}><i className="bi bi-box-seam"></i> Add listings</button>
         <Modal showModal={showAddListings} setShowModal={setShowAddListings} cleanUp={cleanup}>
         <div>
             <form className="d-flex flex-column gap-2 p-5" onSubmit={handleSubmit}>

@@ -3,6 +3,7 @@ import AddListing from "./AddListing";
 import { useUserContext } from "./App";
 import backend from "./backend";
 import styles from "./MyListings.module.css";
+import EditListing from "./EditListing";
 
 export default function MyListings(){
     const {user}= useUserContext();
@@ -12,6 +13,8 @@ export default function MyListings(){
     const [listings, setListings] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
     const [failRemove, setFailRemove] = useState(false);
+    const [showEditListing, setShowEditListing] = useState(false);
+    const [editListingProductDetails, setEditListingProductDetails]= useState({});
 
 
     const findMyListings = async()=>{
@@ -89,10 +92,28 @@ export default function MyListings(){
                 removeListing(productId);
         }
         
+        function handleEditListing(productName, productDescription, productPrice, productImage, productImageType, produtImageFileName, sellerUsername, productCode){
+            setEditListingProductDetails({
+                name : productName,
+                description : productDescription,
+                price : productPrice,
+                image : productImage,
+                imageType :  productImageType,
+                imageFileName : produtImageFileName,
+                seller : sellerUsername,
+                code : productCode
+            })
+            setShowEditListing(true);
+        }
+
     return (
         <>
             <div>
-                <h1 className="d-inline-block">Your Listings: </h1>{noListings && <span className="fw-bold fs-3"> You have no current listings.</span>} <AddListing></AddListing>
+                <div className="row m-2">
+                    <div className={`col-sm-12 d-flex ${!noListings && 'justify-content-end'}`}>
+                        {noListings && <span className="fs-3"> You have no current listings.</span>}&nbsp;&nbsp;&nbsp;<AddListing></AddListing>
+                    </div>
+                </div>
                 {
                     !noListings && 
                     <>
@@ -101,17 +122,18 @@ export default function MyListings(){
                                 (product, index, listings)=>
                                 {
                                     return (
-                                        <div className={`card ${styles.listing}`} key={product?.id}>
-                                            <img className="card-img-top" src={`data:${product.productImageType};base64,${product.productImage}`}  alt="product image" width={"100%"} height={"100%"} style={{objectFit:"cover"}}></img>
+                                        <div className={`card ${styles.listing} shadow`} key={product?.id}>
+                                            <img className="card-img-top" src={`data:${product.productImageType};base64,${product.productImage}`}  alt="product image" width={"100%"} height={"100%"} style={{objectFit:"contain"}}></img>
                                             <div className="card-body">
                                                 <h4 className="card-title">{product?.name}</h4>
                                                 <div className="card-text">
                                                     <p>{product?.description}</p>
-                                                    <p>Sold By: <i>{product?.sellerUsername}</i></p>
-                                                    <p>Price: {product?.price}</p>
+                                                    <p><b>Sold By:</b> <i>{product?.sellerUsername}</i></p>
+                                                    <p><b>Price:</b> <i className="bi bi-currency-rupee"></i>{product?.price}</p>
                                                 </div>
                                             </div>
-                                            <div className="card-footer">
+                                            <div className="card-footer d-flex justify-content-around align-items-center flex-wrap">
+                                                <button className="btn btn-primary" onClick={()=>handleEditListing(product?.name, product?.description, product?.price, product?.productImage,product?.productImageType, product?.productImageFileName,product?.sellerUsername, product?.productCode)}>Edit listing</button>
                                                 <button className="btn btn-danger" onClick={()=>handleRemoveListing(product.id)}>Remove listing</button>
                                             </div>
                                         </div>  
@@ -129,17 +151,15 @@ export default function MyListings(){
                                 <option value={1}>1</option>
                                 <option value={5}>5</option>
                                 <option value={10}>10</option>
+                                <option value={20}>20</option>
+                                <option value={50}>50</option>
+                                <option value={100}>100</option>
                             </select>
                         </ul>
                     </>
                 }
-
-                
-              
-
-                
-
             </div>
+            <EditListing showEditListing={showEditListing} setShowEditListing={setShowEditListing} editListingProductDetails={editListingProductDetails} setEditListingProductDetails={setEditListingProductDetails}></EditListing>
         </>
     );
 }
