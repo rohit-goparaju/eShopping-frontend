@@ -15,15 +15,17 @@ export default function MyListings(){
     const [failRemove, setFailRemove] = useState(false);
     const [showEditListing, setShowEditListing] = useState(false);
     const [editListingProductDetails, setEditListingProductDetails]= useState({});
-
+    const [search, setSearch] = useState("");
 
     const findMyListings = async()=>{
         try{
-            const response = await backend.post("/products/findMyListings", {
+            const reqData = {
                 username: user,
                 pageNumber : pageNumber,
-                size : pageSize
-            });  
+                size : pageSize,
+                search: search
+            };
+            const response = await backend.post("/products/findMyListings", reqData);  
             if(response?.data){
                 setListings(response.data?.content);
                 setTotalPages(response.data?.totalPages);
@@ -67,10 +69,12 @@ export default function MyListings(){
 
      const removeListing = async (productID)=>{
             try{
-                const response = await backend.post("/removeListing", {
+                const reqData = {
                     username : user,
-                    productId : productID
-                });
+                    productId : productID,
+                };
+
+                const response = await backend.post("/removeListing", reqData);
     
                 if(response?.data){
                     console.log(response.data);
@@ -105,6 +109,26 @@ export default function MyListings(){
             })
             setShowEditListing(true);
         }
+        
+    function handleSearchChange(event){
+        setSearch(event.target.value);
+    }
+
+    function handleSearch(event){
+        event?.preventDefault();
+        setPageNumber(0);
+        findMyListings();
+    }
+
+    useEffect(
+        ()=>{
+            if(search === ""){
+                setPageNumber(0);
+                findMyListings();
+            }
+        },
+        [search]
+    );
 
     return (
         <>
@@ -117,6 +141,10 @@ export default function MyListings(){
                 {
                     !noListings && 
                     <>
+                        <form className="w-25 ms-auto me-3 d-flex gap-1 align-items-center justify-content-center" onSubmit={handleSearch}>
+                            <input className="form-control border border-dark" type="text" placeholder="&#x1F50D; Search" name="search" value={search || ""} onChange={handleSearchChange}></input>
+                            <input type="submit" className="btn btn-primary flex-shrink-0 flex-grow-0" value={"search"}></input>
+                        </form>
                         <div className={`${styles.listingContainer}`}>
                             {listings.map(
                                 (product, index, listings)=>

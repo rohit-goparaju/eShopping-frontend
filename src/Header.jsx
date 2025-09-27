@@ -57,10 +57,6 @@ export default function Header(){
                 <span className='frederickaFont fs-2'>eShopping</span>
             </a>
             <div className='ms-auto me-3 d-flex justify-content-center align-items-center gap-3'>
-                <form className='d-flex gap-2 ms-auto'>
-                    <input className='form-control' type='text' placeholder='Search' size={"50"}></input>
-                    <input className='btn btn-outline-light' type='submit' value={"search"}></input>
-                </form>
                 <div className='dropdown text-light'>
                     <a className= {`nav-link dropdown-toggle noCaret hoverFadeWhite`} role='button' href='#' data-bs-toggle="dropdown" aria-expanded="false">
                         <div className='d-flex justify-content-center align-items-center gap-2'>

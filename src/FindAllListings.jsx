@@ -1,6 +1,6 @@
 import backend from "./backend";
 import AddListing from "./AddListing";
-import { useState , useEffect, useActionState} from "react";
+import { useState , useEffect, useActionState, useTransition} from "react";
 import { useUserContext } from "./App";
 import styles from './FindAllListings.module.css';
 import Login from './Login';
@@ -14,10 +14,12 @@ export default function FindAllListings(){
     const [totalPages, setTotalPages] = useState(0);
     const {user} = useUserContext();
     const [showLogin, setShowLogin] = useState(false);
+    const [search, setSearch] = useState("");
     
     const findAllListings = async ()=>{
         try{
-            const response = await backend.get(`/products/findAllListings?size=${pageSize}&page=${pageNumber}`);
+
+            const response = await backend.get(`/products/findAllListings?size=${pageSize}&page=${pageNumber}&search=${search ? search :''}`);
 
             if(response?.data){
                 setListings(response.data?.content);
@@ -115,6 +117,26 @@ export default function FindAllListings(){
         removeFromCart(productId);
     }
 
+    function handleSearchChange(event){
+        setSearch(event.target.value);
+    }
+
+    function handleSearch(event){
+        event?.preventDefault();
+        setPageNumber(0);
+        findAllListings();
+    }
+
+    useEffect(
+        ()=>{
+            if(search === ""){
+                setPageNumber(0);
+                findAllListings();
+            }
+        },
+        [search]
+    );
+
     return (
             <>
                 <div>
@@ -126,6 +148,10 @@ export default function FindAllListings(){
                     {
                         !noListings && 
                         <>
+                            <form className="w-25 ms-auto me-3 d-flex gap-1 align-items-center justify-content-center" onSubmit={handleSearch}>
+                                <input className="form-control border border-dark" type="text" placeholder="&#x1F50D; Search" name="search" value={search || ""} onChange={handleSearchChange}></input>
+                                <input type="submit" className="btn btn-primary flex-shrink-0 flex-grow-0" value={"search"}></input>
+                            </form>
                             <div className={`${styles.listingContainer}`}>
                                 {listings.map(
                                     (product, index, listings)=>
@@ -165,6 +191,7 @@ export default function FindAllListings(){
                                 <li className="page-item"><a className={`page-link ${pageNumber === (totalPages-1)? "disabled" : ""}`} href="#" onClick={()=>setPageNumber(prev=>prev+1)}>Next</a></li>
                                 <select className="page-link rounded-end" name="pageSize" value={pageSize} onChange={(event)=>setPageSize(event.target.value)}>
                                     <option value={1}>1</option>
+                                    <option value={2}>2</option>
                                     <option value={5}>5</option>
                                     <option value={10}>10</option>
                                     <option value={20}>20</option>
