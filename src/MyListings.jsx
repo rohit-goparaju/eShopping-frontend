@@ -141,9 +141,11 @@ export default function MyListings(){
                 {
                     !noListings && 
                     <>
-                        <form className="w-25 ms-auto me-3 d-flex gap-1 align-items-center justify-content-center" onSubmit={handleSearch}>
-                            <input className="form-control border border-dark" type="text" placeholder="&#x1F50D; Search" name="search" value={search || ""} onChange={handleSearchChange}></input>
-                            <input type="submit" className="btn btn-primary flex-shrink-0 flex-grow-0" value={"search"}></input>
+                        <form className="row ms-auto me-3 mb-4 g-0" onSubmit={handleSearch}>
+                                <div className="col-11 col-md-6 col-lg-5 col-xl-3 d-flex gap-1 ms-auto">
+                                    <input className="form-control border border-dark" type="text" placeholder="&#x1F50D; Search" name="search" value={search || ""} onChange={handleSearchChange}></input>
+                                    <input type="submit" className="btn btn-primary" value={"search"}></input>
+                                </div>
                         </form>
                         <div className={`${styles.listingContainer}`}>
                             {listings.map(
