@@ -16,6 +16,7 @@ export default function MyListings(){
     const [showEditListing, setShowEditListing] = useState(false);
     const [editListingProductDetails, setEditListingProductDetails]= useState({});
     const [search, setSearch] = useState("");
+    const [totalElements, setTotalElements] = useState(0);
 
     const findMyListings = async()=>{
         try{
@@ -29,6 +30,7 @@ export default function MyListings(){
             if(response?.data){
                 setListings(response.data?.content);
                 setTotalPages(response.data?.totalPages);
+                setTotalElements(response.data?.totalElements);
                 if(response.data?.totalElements > 0){
                     setNoListings(false);
                 }else{
@@ -150,6 +152,7 @@ export default function MyListings(){
                                     <input type="submit" className="btn btn-primary" value={"search"}></input>
                                 </div>
                         </form>
+                        <div className="px-4">Page: {pageNumber + 1} of {totalPages} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; Total products: {totalElements}</div>
                         <div className={`${styles.listingContainer}`}>
                             {listings.map(
                                 (product, index, listings)=>

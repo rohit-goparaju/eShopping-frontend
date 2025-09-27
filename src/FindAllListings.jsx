@@ -16,6 +16,7 @@ export default function FindAllListings(){
     const {user} = useUserContext();
     const [showLogin, setShowLogin] = useState(false);
     const [search, setSearch] = useState("");
+    const [totalElements, setTotalElements] = useState(0);
     
     const findAllListings = async ()=>{
         try{
@@ -25,6 +26,7 @@ export default function FindAllListings(){
             if(response?.data){
                 setListings(response.data?.content);
                 setTotalPages(response.data?.totalPages);
+                setTotalElements(response.data?.totalElements);
                 if(response.data?.totalElements > 0){
                     setNoListings(false);
                 }else{
@@ -157,6 +159,7 @@ export default function FindAllListings(){
                                     <input type="submit" className="btn btn-primary" value={"search"}></input>
                                 </div>
                             </form>
+                            <div className="px-4">Page: {pageNumber + 1} of {totalPages} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; Total products: {totalElements}</div>
                             <div className={`${styles.listingContainer}`}>
                                 {listings.map(
                                     (product, index, listings)=>
