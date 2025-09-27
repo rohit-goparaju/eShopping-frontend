@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import backend from "./backend";
 import { base64ToFile } from "./util";
 
-export default function EditListing({showEditListing, setShowEditListing, editListingProductDetails, setEditListingProductDetails}){
+export default function EditListing({showEditListing, setShowEditListing, editListingProductDetails, setEditListingProductDetails, listRefreshFunction}){
 
     const {user} = useUserContext();
     const [inputs, setInputs] = useState({productName: editListingProductDetails.name, productDescription: editListingProductDetails.description, productPrice : editListingProductDetails.price});
@@ -14,7 +14,7 @@ export default function EditListing({showEditListing, setShowEditListing, editLi
 
 
     function cleanup(){
-        window.location.reload();
+        listRefreshFunction();
         setEditListingProductDetails({});
         setInputs({});
         setFileFormatErr(false);

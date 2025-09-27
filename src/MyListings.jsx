@@ -75,7 +75,7 @@ export default function MyListings(){
                 if(response?.data){
                     console.log(response.data);
                     setFailRemove(false);
-                    window.location.reload();
+                    findMyListings();
                 }
                 else{
                     setFailRemove(true);
@@ -111,7 +111,7 @@ export default function MyListings(){
             <div>
                 <div className="row m-2">
                     <div className={`col-sm-12 d-flex ${!noListings && 'justify-content-end'}`}>
-                        {noListings && <span className="fs-3"> You have no current listings.</span>}&nbsp;&nbsp;&nbsp;<AddListing></AddListing>
+                        {noListings && <span className="fs-3"> You have no current listings.</span>}&nbsp;&nbsp;&nbsp;<AddListing listRefreshFunction={findMyListings}></AddListing>
                     </div>
                 </div>
                 {
@@ -132,7 +132,7 @@ export default function MyListings(){
                                                     <p><b>Price:</b> <i className="bi bi-currency-rupee"></i>{product?.price}</p>
                                                 </div>
                                             </div>
-                                            <div className="card-footer d-flex justify-content-around align-items-center flex-wrap">
+                                            <div className="card-footer d-flex flex-column justify-content-around align-items-stretch gap-2 flex-wrap">
                                                 <button className="btn btn-primary" onClick={()=>handleEditListing(product?.name, product?.description, product?.price, product?.productImage,product?.productImageType, product?.productImageFileName,product?.sellerUsername, product?.productCode)}>Edit listing</button>
                                                 <button className="btn btn-danger" onClick={()=>handleRemoveListing(product.id)}>Remove listing</button>
                                             </div>
@@ -159,7 +159,7 @@ export default function MyListings(){
                     </>
                 }
             </div>
-            <EditListing showEditListing={showEditListing} setShowEditListing={setShowEditListing} editListingProductDetails={editListingProductDetails} setEditListingProductDetails={setEditListingProductDetails}></EditListing>
+            <EditListing showEditListing={showEditListing} setShowEditListing={setShowEditListing} editListingProductDetails={editListingProductDetails} setEditListingProductDetails={setEditListingProductDetails} listRefreshFunction={findMyListings}></EditListing>
         </>
     );
 }

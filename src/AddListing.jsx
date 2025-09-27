@@ -3,7 +3,7 @@ import {useUserContext} from "./App";
 import backend from "./backend";
 import Modal from "./Modal";
 
-export default function AddListing(){
+export default function AddListing({listRefreshFunction}){
 
     const [inputs, setInputs] = useState({});
     const {user} = useUserContext();
@@ -39,7 +39,7 @@ export default function AddListing(){
                 console.log(response.data);
                 cleanup();
                 setShowAddListings(false);
-                window.location.reload();                
+                listRefreshFunction();
             }else{
                 setAddError(true);
                 console.error("Failed to add listing");

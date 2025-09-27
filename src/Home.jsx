@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUserContext } from "./App";
 import Modal from "./Modal";
+import FindAllListings from "./FindAllListings";
 
 export default function Home(){
     const {user} = useUserContext();
@@ -8,11 +9,9 @@ export default function Home(){
 
     return (
         <>
-            <h1>
-                Welcome to eShopping {user}
-            </h1>
-            {/* <Modal showModal={showModal} setShowModal={setShowModal}>Hello</Modal>
-            <button onClick={()=>setShowModal(true)}>show modal</button> */}
+            {/* {!user && <span className="fs-3">Login to buy/sell products.</span>} */}
+            {/* <div>Welcome to eShopping</div> */}
+            <FindAllListings></FindAllListings>
         </>
     );
 }
