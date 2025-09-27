@@ -59,7 +59,8 @@ export default function Header(){
                 <div className='dropdown text-light'>
                     <a className= {`nav-link dropdown-toggle noCaret hoverFadeWhite`} role='button' href='#' data-bs-toggle="dropdown" aria-expanded="false">
                         <div className='d-flex justify-content-center align-items-center gap-2'>
-                            <i className='bi bi-person-circle fs-2'></i> <span className='fs-5'>{user}</span>
+                            <i className='bi bi-person-circle fs-2'></i> 
+                            {user && <span className='fs-5'>{user}</span>}
                         </div>
                     </a>
                     <ul className='dropdown-menu dropdown-menu-end w-100'>
@@ -71,12 +72,12 @@ export default function Header(){
                                 </li>
                             </>
                         }
-                        <li>
-                            <a className='dropdown-item hoverFWBold' href='#'><i className='bi bi-cart-check'></i> Cart</a>
-                        </li>
                         {
                             user && 
                             <>  
+                                <li>
+                                    <Link className='dropdown-item hoverFWBold' to='/cart'><i className='bi bi-cart-check'></i> Cart</Link>
+                                </li>
                                 <li>
                                     <Link className='dropdown-item hoverFWBold' to='/myListings'><i className='bi bi-card-list'></i> My listings</Link>
                                 </li>

@@ -4,6 +4,7 @@ import { useState , useEffect, useActionState, useTransition} from "react";
 import { useUserContext } from "./App";
 import styles from './FindAllListings.module.css';
 import Login from './Login';
+import { Link } from "react-router-dom";
 
 export default function FindAllListings(){
 
@@ -27,10 +28,12 @@ export default function FindAllListings(){
                 if(response.data?.totalElements > 0){
                     setNoListings(false);
                 }else{
-                    setNoListings(true);
+                    if(!search)
+                        setNoListings(true);
                 }
             }else{
-                setNoListings(true);
+                if(!search)
+                    setNoListings(true);
             }
 
         }catch(error){
@@ -173,7 +176,12 @@ export default function FindAllListings(){
                                                     user &&
                                                 <div className="card-footer d-flex flex-column justify-content-center align-items-stretch gap-2 flex-wrap">
                                                     {user && product?.buyerUsername !== user &&<button className="btn btn-primary" onClick={()=>handleAddToCart(product?.id)}><i className="bi bi-cart-plus"></i> Add to cart</button>}
-                                                    {user && product?.buyerUsername === user && <button className="btn btn-danger" onClick={()=>handleRemoveFromCart(product?.id)}><i className="bi bi-cart-x"></i> Remove from cart</button>}
+                                                    {user && product?.buyerUsername === user && 
+                                                    <div className="d-flex justify-content-center align-items-center gap-3">
+                                                        <button className="btn btn-danger flex-grow-0 flex-shrink-0" onClick={()=>handleRemoveFromCart(product?.id)}><i className="bi bi-cart-x"></i> Remove from cart</button>
+                                                        <Link className="btn btn-success flex-grow-0 flex-shrink-0" to={"/cart"}>goto <i className="bi bi-cart-check"></i></Link>
+                                                    </div>
+                                                    }
                                                 </div>
                                                 }
                                                 {

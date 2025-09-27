@@ -32,11 +32,14 @@ export default function MyListings(){
                 if(response.data?.totalElements > 0){
                     setNoListings(false);
                 }else{
-                    setNoListings(true);
+                    if(!search){
+                        setNoListings(true);
+                    }
                 }
                 // console.log(response.data);
             }else{
-                setNoListings(true);
+                if(!search)
+                    setNoListings(true);
             }
         }catch(error){
             setNoListings(true);

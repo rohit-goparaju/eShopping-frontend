@@ -36,7 +36,7 @@ export default function AddListing({listRefreshFunction}){
             const response = await backend.post("/addListing", formData);
 
             if(response?.data){
-                console.log(response.data);
+                // console.log(response.data);
                 cleanup();
                 setShowAddListings(false);
                 listRefreshFunction();
@@ -71,7 +71,7 @@ export default function AddListing({listRefreshFunction}){
     function handleSubmit(event){
         event.preventDefault();
         addListing();
-        console.log(inputs , user);
+        // console.log(inputs , user);
     }
 
     function cleanup(){
